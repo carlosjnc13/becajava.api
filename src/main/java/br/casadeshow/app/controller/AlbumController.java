@@ -14,27 +14,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.casadeshow.app.model.Banda;
-import br.casadeshow.app.service.BandaService;
+import br.casadeshow.app.model.Album;
+import br.casadeshow.app.service.AlbumService;
 
 @RestController
-@RequestMapping("/bandas")
-public class BandaController {
+@RequestMapping("/albuns")
+public class AlbumController {
 
-	public BandaService _service;
+	public AlbumService _service;
 
 	@Autowired
-	public BandaController(BandaService service) {
+	public AlbumController(AlbumService service) {
 		_service = service;
 	}
-
 	@PostMapping
 
-	public ResponseEntity inserir(@RequestBody Banda banda) {
+	public ResponseEntity inserir(@RequestBody Album album) {
 		
 		try {
-			_service.inserir(banda);
-			return ResponseEntity.status(HttpStatus.CREATED).body("Banda Inserida com sucesso!");
+			_service.inserir(album);
+			return ResponseEntity.status(HttpStatus.CREATED).body("Album Inserida com sucesso!");
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro na aplicação!");
 		}
@@ -43,8 +42,8 @@ public class BandaController {
 	@GetMapping
 	public ResponseEntity listar() {
 		try {
-			Iterable<Banda> banda = _service.listar();
-			return ResponseEntity.status(HttpStatus.OK).body(banda);
+			Iterable<Album> album = _service.listar();
+			return ResponseEntity.status(HttpStatus.OK).body(album);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro na aplicação!");
 		}
@@ -53,18 +52,18 @@ public class BandaController {
 	@GetMapping(path = "/{id}")
 	public ResponseEntity obter(@PathVariable Long id) {
 		try {
-			Optional<Banda> banda = _service.obter(id);
-			return ResponseEntity.status(HttpStatus.OK).body(banda);
+			Optional<Album> album = _service.obter(id);
+			return ResponseEntity.status(HttpStatus.OK).body(album);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro na aplicação!");
 		}
 	}
 
 	@PutMapping(path = "/{id}")
-	public ResponseEntity atualizar(@RequestBody Banda banda, @PathVariable Long id) {
+	public ResponseEntity atualizar(@RequestBody Album album, @PathVariable Long id) {
 		try {
-			_service.atualizar(banda, id);
-			return ResponseEntity.status(HttpStatus.OK).body("Banda atualizada com sucesso!");
+			_service.atualizar(album, id);
+			return ResponseEntity.status(HttpStatus.OK).body("Album atualizada com sucesso!");
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro na aplicação!");
 		}
